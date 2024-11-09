@@ -1,3 +1,7 @@
+################################################################################
+#### Made by Thanawat Sukamporn ; President of Return to monkey - Tech Team ####
+################################################################################
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 import cv2
 from ultralytics import YOLO
@@ -8,10 +12,10 @@ import os
 class Ui_MainWindow(QtWidgets.QMainWindow):
     def __init__(self, model_path, class_names):
         super().__init__()
-        self.model = YOLO(model_path)  # Load YOLO model
+        self.model = YOLO(model_path) 
         self.class_names = class_names
-        self.roi_coords_list = []  # List to store ROIs
-        self.is_drawing = False  # Toggle drawing mode
+        self.roi_coords_list = [] 
+        self.is_drawing = False
         self.start_point = None
         self.end_point = None
         self.detections_log = "data.txt"  # Log file for detections
@@ -36,7 +40,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.btn_remove_roi.setGeometry(QtCore.QRect(660, 710, 601, 51))
         self.btn_remove_roi.clicked.connect(self.remove_last_roi)
 
-        # Add plain text edit for class names input
+
         self.txt_class_names = QtWidgets.QPlainTextEdit(self)
         self.txt_class_names.setGeometry(QtCore.QRect(10, 770, 1251, 51))
         self.txt_class_names.setPlaceholderText("Enter class names, one per line")
@@ -44,7 +48,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.btn_delete_last_class = QtWidgets.QPushButton("Delete Last Class", self)
         self.btn_delete_last_class.setGeometry(QtCore.QRect(10, 880, 1251, 51))
         self.btn_delete_last_class.clicked.connect(self.delete_last_class)
-        # Button to update class names
+
         self.btn_update_classes = QtWidgets.QPushButton("Update Classes", self)
         self.btn_update_classes.setGeometry(QtCore.QRect(10, 830, 1251, 51))
         self.btn_update_classes.clicked.connect(self.update_class_names)
@@ -162,7 +166,6 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 if __name__ == "__main__":
     import sys
     
-    # Load model path from ptpath.txt
     try:
         with open("ptpath.txt", "r") as f:
             model_path = f.read().strip()
@@ -170,7 +173,7 @@ if __name__ == "__main__":
         print("Error: ptpath.txt not found.")
         sys.exit(1)
 
-    class_names = []  # Adjust to your trained class labels
+    class_names = []
     app = QtWidgets.QApplication(sys.argv)
     main_window = Ui_MainWindow(model_path, class_names)
     main_window.show()
